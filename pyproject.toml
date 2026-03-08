@@ -5,7 +5,7 @@ build-backend = "setuptools.backends.legacy:build"
 [project]
 name = "trading-algo"
 version = "0.1.0"
-requires-python = ">=3.11"
+python = ">=3.12,<3.15"
 dependencies = [
     "streamlit>=1.40.0",
     "yfinance>=0.2.0",
