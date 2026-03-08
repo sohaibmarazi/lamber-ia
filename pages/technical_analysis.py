@@ -1,0 +1,36 @@
+from figure import Figure
+from data_fetcher import DataFetcher
+import streamlit as st
+
+def display_price_chart(ticker: str):
+    
+    fetcher = DataFetcher(ticker)
+    figure = Figure()
+    
+    price_data = fetcher.get_technical()
+    
+    st.title(f"Price Data {ticker}", anchor=False)
+    st.header(f"Daily Chart for {ticker}", anchor=False)
+    st.plotly_chart(figure.plot_chart(price_data), use_container_width=True)
+    st.divider()
+    st.header("Price Data", anchor=False)
+    st.data_editor(price_data)
+    
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        change = price_data["Close"].iloc[-1]- price_data["Close"].iloc[-2]
+        percentage = (change/price_data["Close"].iloc[-1])*100
+        st.metric(label="Opening Price", value=f'${price_data["Open"].iloc[-1]:.2f}', delta=f"{percentage:.2f}%")
+    with col2: 
+        st.metric(label="Closing Price", value=f'${price_data["Close"].iloc[-1]:.2f}')
+    with col3:
+        st.metric(label="Highest Price", value=f'${price_data["High"].iloc[-1]:.2f}')
+    with col4:
+        st.metric(label="Lowest Price", value=f'${price_data["Low"].iloc[-1]:.2f}')
+    
+    st.markdown("If you need help interpreting this data, you can ask your AI Financial Mentor")
+    if st.button(label="Ask AI Financial Mentor", icon="↗"):
+        st.switch_page("./pages/AI_mentor.py")
+    
+display_price_chart(st.session_state.ticker)
+    

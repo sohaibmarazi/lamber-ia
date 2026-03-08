@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "trading-algo"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.40.0",
+    "yfinance>=0.2.0",
+    "pandas>=2.0.0",
+    "plotly>=5.0.0",
+    "python-dotenv>=1.0.0",
+    "zai-sdk>=0.0.4",
+    "pyinstaller>=6.0.0",
+]
